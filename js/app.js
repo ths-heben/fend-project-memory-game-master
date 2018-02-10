@@ -12,6 +12,9 @@ var cards = [
     "fa-bomb"
 ];
 
+var turn = 0;       // Each click on a card is a turn
+var symbols = [];   // Array saves symbol classes of opened cards
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -38,10 +41,57 @@ function shuffle(array) {
 for (i = 0; i < 2; i++) {
     cards = shuffle(cards);
     cards.forEach(function(card){
-        $('.deck').append('<li class="card"><i class="fa ' + card + '"></i></li>');
+        $('.deck').append('<li class="card"><i class="fa ' + card + '"></i></li>'); // card HTML
     });
 }
 
+// listener for a card
+$('.card').click(openCard);
+
+
+function openCard() {
+    let symbolClassName = $(this).find('i').attr('class'); // Name of symbol
+    symbols.push(symbolClassName);
+
+    if (turn % 2 === 0 && turn !== 0) {
+        console.log('turn back');
+        $(this).toggleClass("show open");
+
+        if ($('li').hasClass("open")) {
+            $('li').removeClass("show open");
+            $(this).toggleClass("show open");
+        }
+
+
+    }
+    else {
+        $(this).toggleClass("show open");
+
+        if (turn % 2 === 1) {
+
+            function symbolMatchCheck(symbolsArray) {
+                for (i = 0; i < symbolsArray.length; i++) {
+                    if (symbolsArray[i] === symbolsArray[i-1])
+                        $('.show').addClass('match');
+                }
+                symbolsArray.length = 0; // Symbols array has to be empty for next Check
+            }
+            symbolMatchCheck(symbols);
+
+            //console.log('Check match');
+            //console.log(symbols);
+        }
+    }
+
+    console.log(turn); // log each turn
+    addTurn(); // turn++
+}
+
+function addTurn() {
+    turn++;
+
+    // TODO: Add star configuration here
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
