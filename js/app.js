@@ -14,6 +14,9 @@ var cards = [
 
 var turn = 0;       // Each click on a card is a turn
 var symbols = [];   // Array saves symbol classes of opened cards
+var matches = cards.length; // Counts matches which are needed for winning a game
+var matchCounter = 0;
+$(".congrat-overlay").hide(); // Hide Congratulation overlay
 
 /*
  * Display the cards on the page
@@ -62,21 +65,27 @@ function openCard() {
             $(this).toggleClass("show open");
         }
 
-
     }
     else {
         $(this).toggleClass("show open");
 
-        if (turn % 2 === 1) {
+        if (turn % 2 === 1) { // After every second turn there is a check
 
             function symbolMatchCheck(symbolsArray) {
                 for (i = 0; i < symbolsArray.length; i++) {
-                    if (symbolsArray[i] === symbolsArray[i-1])
+                    if (symbolsArray[i] === symbolsArray[i-1]) {
                         $('.show').addClass('match');
+
+                        matchCounter++;
+
+                        if (matchCounter === matches)
+                            $(".congrat-overlay").toggle();
+                    }
                 }
                 symbolsArray.length = 0; // Symbols array has to be empty for next Check
             }
             symbolMatchCheck(symbols);
+
 
             //console.log('Check match');
             //console.log(symbols);
@@ -91,6 +100,14 @@ function addTurn() {
     turn++;
 
     // TODO: Add star configuration here
+}
+
+$(".restart").click(function () {
+    restartGame();
+});
+
+function restartGame() {
+    location.reload();
 }
 
 /*
