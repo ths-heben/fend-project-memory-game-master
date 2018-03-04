@@ -97,7 +97,10 @@ function openCard() {
                             $(".congrat-overlay").toggle();
                             stopStopwatch();
                             console.log('stopped');
+                            var stars = $('.fa-star').length
                             $('#time').append('<span>' + getTime(time) + '</span>');
+                            $('#congrat-moves').append('<span>' + move + '</span>');
+                            $('#congrat-stars').append('<span>' + stars + '</span>');
                         }
                     }
                 }
