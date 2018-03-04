@@ -116,7 +116,11 @@ function openCard() {
 function addTurn() {
     turn++;
 
-    // TODO: Add star configuration here
+    // Remove stars after some moves
+    if(turn % 12 == 0) {
+        $( ".fa-star" ).last().addClass('fa-star-o');
+        $( ".fa-star" ).last().removeClass('fa-star');
+    }
 }
 
 $(".restart").click(function () {
