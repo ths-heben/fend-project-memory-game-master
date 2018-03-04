@@ -16,6 +16,7 @@ var turn = 0;       // Each click on a card is a turn
 var symbols = [];   // Array saves symbol classes of opened cards
 var matches = cards.length; // Counts matches which are needed for winning a game
 var matchCounter = 0;
+var move = 0;
 $(".congrat-overlay").hide(); // Hide Congratulation overlay
 
 var time = 0;
@@ -111,17 +112,25 @@ function openCard() {
     }
 
     console.log(turn); // log each turn
+
     addTurn(); // turn++
 }
 
 function addTurn() {
     turn++;
 
-    // Remove stars after some moves
-    if(turn % 12 == 0) {
-        $( ".fa-star" ).last().addClass('fa-star-o');
-        $( ".fa-star" ).last().removeClass('fa-star');
+    if(turn % 2 == 0) {
+        move++;
+        $('.moves').replaceWith('<span class="moves">' + move + '</span>');
+
+        // Remove stars after some moves
+        if(move % 6 == 0) {
+            $(".fa-star").last().addClass('fa-star-o');
+            $(".fa-star").last().removeClass('fa-star');
+        }
     }
+
+
 }
 
 $(".restart").click(function () {
