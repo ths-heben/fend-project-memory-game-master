@@ -22,6 +22,7 @@ var time = 0;
 var stopwatch = setInterval(function(){
     time++;
     console.log('Stopwatch: ' + time);
+    $('#currentTime').replaceWith('<span id="currentTime">' + time + '</span>');
 }, 1000);
 
 function stopStopwatch() {
