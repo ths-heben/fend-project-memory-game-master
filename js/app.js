@@ -18,6 +18,16 @@ var matches = cards.length; // Counts matches which are needed for winning a gam
 var matchCounter = 0;
 $(".congrat-overlay").hide(); // Hide Congratulation overlay
 
+var time = 0;
+var stopwatch = setInterval(function(){
+    time++;
+    console.log('Stopwatch: ' + time);
+}, 1000);
+
+function stopStopwatch() {
+    clearInterval(stopwatch);
+}
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -47,6 +57,9 @@ for (i = 0; i < 2; i++) {
         $('.deck').append('<li class="card"><i class="fa ' + card + '"></i></li>'); // card HTML
     });
 }
+
+
+
 
 // listener for a card
 $('.card').click(openCard);
@@ -78,8 +91,12 @@ function openCard() {
 
                         matchCounter++;
 
-                        if (matchCounter === matches)
+                        if (matchCounter === matches) {
                             $(".congrat-overlay").toggle();
+                            stopStopwatch();
+                            console.log('stopped');
+                            $('#time').append('<span>' + getTime(time) + '</span>');
+                        }
                     }
                 }
                 symbolsArray.length = 0; // Symbols array has to be empty for next Check
@@ -108,6 +125,20 @@ $(".restart").click(function () {
 
 function restartGame() {
     location.reload();
+}
+
+function getTime(time) {
+    seconds = time;
+    minutes = Math.floor(seconds / 60);
+
+    var timeResult;
+
+    if (minutes > 0)
+        timeResult = minutes + ' min ' + seconds + ' sec'
+    else
+        timeResult = seconds + ' sec';
+
+    return timeResult;
 }
 
 /*
