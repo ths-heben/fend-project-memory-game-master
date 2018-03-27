@@ -17,12 +17,14 @@ var symbols = [];   // Array saves symbol classes of opened cards
 var matches = cards.length; // Counts matches which are needed for winning a game
 var matchCounter = 0;
 var move = 0;
+var matchTurn = false;
+
 $(".congrat-overlay").hide(); // Hide Congratulation overlay
 
 var time = 0;
 var stopwatch = setInterval(function(){
     time++;
-    console.log('Stopwatch: ' + time);
+    //console.log('Stopwatch: ' + time);
     $('#currentTime').replaceWith('<span id="currentTime">' + time + '</span>');
 }, 1000);
 
@@ -60,12 +62,8 @@ for (i = 0; i < 2; i++) {
     });
 }
 
-
-
-
 // listener for a card
 $('.card').click(openCard);
-
 
 function openCard() {
     let symbolClassName = $(this).find('i').attr('class'); // Name of symbol
@@ -91,8 +89,11 @@ function openCard() {
                     if (symbolsArray[i] === symbolsArray[i-1]) {
                         $('.show').addClass('match');
 
+                        matchTurn = true;
+
                         matchCounter++;
 
+                        // Show Congratulation overlay when game finished
                         if (matchCounter === matches) {
                             $(".congrat-overlay").toggle();
                             stopStopwatch();
@@ -103,13 +104,16 @@ function openCard() {
                             $('#congrat-stars').append('<span>' + stars + '</span>');
                         }
                     }
+                    else {
+                        matchTurn = false;
+                    }
                 }
                 symbolsArray.length = 0; // Symbols array has to be empty for next Check
             }
             symbolMatchCheck(symbols);
+            console.log(matchTurn);
 
-
-            //console.log('Check match');
+            console.log('Check match');
             //console.log(symbols);
         }
     }
@@ -123,14 +127,19 @@ function addTurn() {
     turn++;
 
     if(turn % 2 == 0) {
-        move++;
-        $('.moves').replaceWith('<span class="moves">' + move + '</span>');
 
-        // Remove stars after some moves
-        if(move % 6 == 0) {
-            $(".fa-star").last().addClass('fa-star-o');
-            $(".fa-star").last().removeClass('fa-star');
+        // A move counts only when the cards do not match
+        if(!matchTurn) {
+            move++;
+            $('.moves').replaceWith('<span class="moves">' + move + '</span>');
+
+            // Remove stars after some moves
+            if(move % 6 == 0) {
+                $(".fa-star").last().addClass('fa-star-o');
+                $(".fa-star").last().removeClass('fa-star');
+            }
         }
+
     }
 
 
