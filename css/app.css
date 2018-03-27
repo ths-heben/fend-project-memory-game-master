@@ -126,7 +126,9 @@ h1 {
 }
 
 /* Extra small devices (portrait phones, less than 576px) */
-@media (max-width: 575px) { ... }
+@media (max-width: 575px) {
+    ...
+}
 
 /* Small devices (landscape phones, less than 768px) */
 @media (max-width: 767px) {
@@ -148,4 +150,6 @@ h1 {
 }
 
 /* Large devices (desktops, less than 1200px) */
-@media (max-width: 1199px) { ... }
+@media (max-width: 1199px) {
+    ...
+}

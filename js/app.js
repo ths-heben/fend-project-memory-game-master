@@ -22,7 +22,7 @@ var matchTurn = false;
 $(".congrat-overlay").hide(); // Hide Congratulation overlay
 
 var time = 0;
-var stopwatch = setInterval(function(){
+var stopwatch = setInterval(function () {
     time++;
     //console.log('Stopwatch: ' + time);
     $('#currentTime').replaceWith('<span id="currentTime">' + time + '</span>');
@@ -57,7 +57,7 @@ function shuffle(array) {
 // create deck two times for 8 pair of cards
 for (i = 0; i < 2; i++) {
     cards = shuffle(cards);
-    cards.forEach(function(card){
+    cards.forEach(function (card) {
         $('.deck').append('<li class="card"><i class="fa ' + card + '"></i></li>'); // card HTML
     });
 }
@@ -86,7 +86,7 @@ function openCard() {
 
             function symbolMatchCheck(symbolsArray) {
                 for (i = 0; i < symbolsArray.length; i++) {
-                    if (symbolsArray[i] === symbolsArray[i-1]) {
+                    if (symbolsArray[i] === symbolsArray[i - 1]) {
                         $('.show').addClass('match');
 
                         matchTurn = true;
@@ -110,6 +110,7 @@ function openCard() {
                 }
                 symbolsArray.length = 0; // Symbols array has to be empty for next Check
             }
+
             symbolMatchCheck(symbols);
             console.log(matchTurn);
 
@@ -117,7 +118,6 @@ function openCard() {
             //console.log(symbols);
         }
     }
-
     console.log(turn); // log each turn
 
     addTurn(); // turn++
@@ -126,23 +126,21 @@ function openCard() {
 function addTurn() {
     turn++;
 
-    if(turn % 2 == 0) {
+    if (turn % 2 == 0) {
 
         // A move counts only when the cards do not match
-        if(!matchTurn) {
+        if (!matchTurn) {
             move++;
             $('.moves').replaceWith('<span class="moves">' + move + '</span>');
 
             // Remove stars after some moves
-            if(move % 6 == 0) {
+            if (move % 6 == 0) {
                 $(".fa-star").last().addClass('fa-star-o');
                 $(".fa-star").last().removeClass('fa-star');
             }
         }
 
     }
-
-
 }
 
 $(".restart").click(function () {
