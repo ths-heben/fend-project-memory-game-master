@@ -1,20 +1,17 @@
 # Memory Game Project
 
-## Table of Contents
-
-* [Instructions](#instructions)
-* [Contributing](#contributing)
-
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+This game was built as a Udacity project. The purpose of the project is to demonstrate the combination of JS, CSS and HTML.
 
-To get started, open `js/app.js` and start building out the app's functionality
+### How to play
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+Start by opening index.html
 
-## Contributing
+A deck with 8 pairs of cards will be created.
+Open a card by clicking it. If two opened cards match to each other they stay opened.
+Game is finished when all cards are open.
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+**Stars:** The less moves you need, the more stars you will get. A move will be added when a pair of cards do not match.
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+
