@@ -54,13 +54,15 @@ function shuffle(array) {
     return array;
 }
 
-// create deck two times for 8 pair of cards
-for (i = 0; i < 2; i++) {
-    cards = shuffle(cards);
-    cards.forEach(function (card) {
-        $('.deck').append('<li class="card"><i class="fa ' + card + '"></i></li>'); // card HTML
-    });
-}
+// Duplicate each item in array
+cards.forEach(function (card) {
+    cards.push(card);
+});
+
+cards = shuffle(cards);
+cards.forEach(function (card) {
+    $('.deck').append('<li class="card"><i class="fa ' + card + '"></i></li>'); // card HTML
+});
 
 // listener for a card
 $('.card').click(openCard);
