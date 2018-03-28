@@ -77,17 +77,17 @@ function openCard() {
     }
     else {
         addTurn(); // turn++
-        console.log()
-        let symbolClassName = $(this).find('i').attr('class'); // Name of symbol
+
+        var symbolClassName = $(this).find('i').attr('class'); // Name of symbol
         symbols.push(symbolClassName);
 
 
         $(this).toggleClass("show open");
-
+        var symbolMatchCheck;
         if (turn % 2 === 0) { // After every second turn there is a check
             console.log('will be checked');
 
-            function symbolMatchCheck(symbolsArray) {
+            symbolMatchCheck = function(symbolsArray) {
                 for (i = 0; i < symbolsArray.length; i++) {
                     if (symbolsArray[i] === symbolsArray[i - 1]) {
                         $('.show').addClass('match');
@@ -101,7 +101,7 @@ function openCard() {
                             $(".congrat-overlay").toggle();
                             stopStopwatch();
                             console.log('stopped');
-                            var stars = $('.fa-star').length
+                            var stars = $('.fa-star').length;
                             $('#time').append('<span>' + getTime(time) + '</span>');
                             $('#congrat-moves').append('<span>' + move + '</span>');
                             $('#congrat-stars').append('<span>' + stars + '</span>');
@@ -112,14 +112,10 @@ function openCard() {
                     }
                 }
                 symbolsArray.length = 0; // Symbols array has to be empty for next Check
-            }
-
-
-
+            };
 
             symbolMatchCheck(symbols);
             console.log('Card match is: ' + matchTurn);
-
 
             if (!matchTurn) {
                 setTimeout(function () {
@@ -145,7 +141,7 @@ function openCard() {
 function addTurn() {
     turn++;
 
-    if (turn % 2 == 0) {
+    if (turn % 2 === 0) {
 
         // A move counts only when the cards do not match
         if (!matchTurn) {
@@ -153,7 +149,7 @@ function addTurn() {
             $('.moves').replaceWith('<span class="moves">' + move + '</span>');
 
             // Remove stars after some moves
-            if (move % 6 == 0) {
+            if (move % 6 === 0) {
                 $(".fa-star").last().addClass('fa-star-o');
                 $(".fa-star").last().removeClass('fa-star');
             }
@@ -171,13 +167,13 @@ function restartGame() {
 }
 
 function getTime(time) {
-    seconds = time;
-    minutes = Math.floor(seconds / 60);
+    var seconds = time;
+    var minutes = Math.floor(seconds / 60);
 
     var timeResult;
 
     if (minutes > 0)
-        timeResult = minutes + ' min ' + seconds + ' sec'
+        timeResult = minutes + ' min ' + seconds + ' sec';
     else
         timeResult = seconds + ' sec';
 
