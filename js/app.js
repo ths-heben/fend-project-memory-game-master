@@ -68,29 +68,30 @@ cards.forEach(function (card) {
 $('.card').click(openCard);
 
 function openCard() {
-    let symbolClassName = $(this).find('i').attr('class'); // Name of symbol
-    symbols.push(symbolClassName);
+    var countOpenCards = $('.show').length;
 
-    if (turn % 2 === 0 && turn !== 0) {
-        console.log('turn back');
-        $(this).toggleClass("show open");
-
-        if ($('li').hasClass("open")) {
-            $('li').removeClass("show open");
-            $(this).toggleClass("show open");
-        }
-
+    // opened cards are not clickable
+    // 2 max opened cards
+    if ($(this).hasClass('show') || countOpenCards > 1) {
+        return false;
     }
     else {
+        addTurn(); // turn++
+        console.log()
+        let symbolClassName = $(this).find('i').attr('class'); // Name of symbol
+        symbols.push(symbolClassName);
+
+
         $(this).toggleClass("show open");
 
-        if (turn % 2 === 1) { // After every second turn there is a check
+        if (turn % 2 === 0) { // After every second turn there is a check
+            console.log('will be checked');
 
             function symbolMatchCheck(symbolsArray) {
                 for (i = 0; i < symbolsArray.length; i++) {
                     if (symbolsArray[i] === symbolsArray[i - 1]) {
                         $('.show').addClass('match');
-
+                        $('.card').removeClass('show');
                         matchTurn = true;
 
                         matchCounter++;
@@ -113,16 +114,32 @@ function openCard() {
                 symbolsArray.length = 0; // Symbols array has to be empty for next Check
             }
 
-            symbolMatchCheck(symbols);
-            console.log(matchTurn);
 
-            console.log('Check match');
+
+
+            symbolMatchCheck(symbols);
+            console.log('Card match is: ' + matchTurn);
+
+
+            if (!matchTurn) {
+                setTimeout(function () {
+                    $(this).toggleClass("show open");
+
+                    if ($('li').hasClass("open")) {
+                        $('li').removeClass("show open");
+                        $(this).toggleClass("show open");
+                    }
+                }, 1000);
+            }
+
+
+
             //console.log(symbols);
         }
     }
-    console.log(turn); // log each turn
 
-    addTurn(); // turn++
+
+
 }
 
 function addTurn() {
